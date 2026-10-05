@@ -362,17 +362,33 @@ body{font-size:16px}
 @media(min-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}}
 @media(min-width:1180px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}}
 
-/* الهاتف: بطاقة عمودية بعرض الشاشة (الاسم والسعر في سطر واحد بشكل مريح) */
+/* الهاتف: نمط متكرر: منتج واحد بعرض الشاشة ثم منتجان في الصف التالي (1 - 2 - 1 - 2 ...) */
 @media(max-width:639px){
-  .grid{grid-template-columns:1fr;gap:14px}
-  .card{border-radius:20px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .card{border-radius:18px}
   .card:hover{transform:none}
-  .card-img{aspect-ratio:4/3}
-  .card-body{gap:8px;padding:14px 16px 16px}
-  .card-name{font-size:1rem}
-  .card-price b{font-size:1.1rem}
-  .card-desc{font-size:.88rem}
-  .card-btn{min-height:46px;font-size:.98rem}
+  /* البطاقة الكبيرة (الأول من كل ثلاثة) */
+  .grid>.card:nth-child(3n+1){grid-column:1/-1;border-radius:20px}
+  .grid>.card:nth-child(3n+1) .card-img{aspect-ratio:4/3}
+  .grid>.card:nth-child(3n+1) .card-body{gap:8px;padding:14px 16px 16px}
+  .grid>.card:nth-child(3n+1) .card-name{font-size:1rem}
+  .grid>.card:nth-child(3n+1) .card-price b{font-size:1.1rem}
+  .grid>.card:nth-child(3n+1) .card-desc{font-size:.88rem}
+  .grid>.card:nth-child(3n+1) .card-btn{min-height:46px;font-size:.98rem}
+  /* البطاقتان الصغيرتان */
+  .grid>.card:not(:nth-child(3n+1)) .card-img{aspect-ratio:1/1}
+  .grid>.card:not(:nth-child(3n+1)) .card-img img{padding:6px}
+  .grid>.card:not(:nth-child(3n+1)) .card-body{gap:6px;padding:10px 10px 12px}
+  .grid>.card:not(:nth-child(3n+1)) .card-top{gap:6px}
+  .grid>.card:not(:nth-child(3n+1)) .card-name{font-size:.82rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .grid>.card:not(:nth-child(3n+1)) .card-price b{font-size:.88rem}
+  .grid>.card:not(:nth-child(3n+1)) .card-price s{font-size:.68rem}
+  .grid>.card:not(:nth-child(3n+1)) .card-desc{font-size:.76rem;line-height:1.6}
+  .grid>.card:not(:nth-child(3n+1)) .card-save{font-size:.7rem}
+  .grid>.card:not(:nth-child(3n+1)) .card-btn{min-height:38px;padding:6px 10px;font-size:.85rem}
+  .grid>.card:not(:nth-child(3n+1)) .badge{top:6px;right:6px;padding:1px 8px;font-size:.68rem}
+  .grid>.card:not(:nth-child(3n+1)) .badge.low{top:auto;bottom:6px}
+  .grid>.card:not(:nth-child(3n+1)).out .card-img::after{font-size:.68rem;padding:3px 10px;inset:auto 0 8px}
 }
 
 /* السلايدر على الهاتف: صورة واضحة في الأعلى ونص مريح فوق تدرّج داكن */
@@ -386,4 +402,26 @@ body{font-size:16px}
   .s-body .btn{min-height:42px;padding:8px 24px;font-size:.95rem;margin-top:12px}
   .slide.photo .s-body p{display:none}
   .trust{margin-top:0}
+}
+
+/* ===== اللوغو ===== */
+.brand{gap:8px}
+.brand-img{flex:none;width:54px;height:54px;object-fit:contain}
+.f-logo{display:block;width:72px;height:72px;margin:0 auto 10px;padding:6px;object-fit:contain;background:#fff;border-radius:20px;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+
+/* ===== شريط المزايا: خلفية بلون الهوية + أيقونات ذهبية ===== */
+.slider{position:relative;z-index:1}
+.trust.three{position:relative;z-index:0;margin-top:-72px;padding:72px 0 8px;border-bottom:0;background:radial-gradient(circle at 88% 0,rgba(242,201,76,.2),transparent 46%),linear-gradient(135deg,#173b2f 0%,#1f6e5a 100%)}
+.trust.three .wrap{grid-template-columns:repeat(3,1fr);gap:0}
+.trust.three .trust-i{position:relative;justify-content:center;gap:12px;padding:16px 10px;color:#fff;font-size:.95rem}
+.trust.three .trust-i+.trust-i::before{content:"";position:absolute;inset-block:24%;inset-inline-start:0;width:1px;background:rgba(255,255,255,.16)}
+.trust.three .ti{display:grid;place-items:center;flex:none;width:48px;height:48px;border:0;border-radius:16px;color:#173b2f;background:linear-gradient(145deg,#ffd84d,#f5a30a);box-shadow:0 6px 14px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.55)}
+.trust.three .ti svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.trust.three small{color:#b9dccd}
+@media(max-width:699px){
+  .trust.three{margin-top:0;padding:6px 0}
+  .trust.three .trust-i{flex-direction:column;justify-content:flex-start;gap:8px;padding:14px 4px;font-size:.8rem;text-align:center}
+  .trust.three .ti{width:42px;height:42px;border-radius:14px}
+  .trust.three .ti svg{width:23px;height:23px}
+  .trust.three .trust-i+.trust-i::before{inset-block:18%}
 }
